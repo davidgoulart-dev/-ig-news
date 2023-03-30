@@ -1,6 +1,7 @@
 import styles from './home.module.scss';
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
+import { SubscribeButton } from '@/components/SubscribeButton';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,6 +21,7 @@ export default function Home() {
         Get access to all the publications <br />
         <span>for $9.90 per month</span>
       </p>
+      <SubscribeButton/>
 
         </section>
 
