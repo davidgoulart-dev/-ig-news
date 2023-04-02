@@ -6,6 +6,8 @@ import { GetStaticProps } from 'next';
 import { stripe } from '@/services/stripe';
 
 
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 interface HomeProps {
@@ -61,3 +63,4 @@ export const getStaticProps: GetStaticProps = async () => {
  }
 
 }
+
