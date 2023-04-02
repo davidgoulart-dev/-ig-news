@@ -1,16 +1,27 @@
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import NextAuth from "next-auth";
 
-export const authOptions = {
-  // Configure one or more authentication providers
+import GitHubProvider from "next-auth/providers/github";
+
+interface Session {
+    scope: string;
+    user: {
+        name: string;
+        email: string;
+        image: string;
+    };
+    }
+export default NextAuth({
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      scope: 'read:user'  
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      authorization: { params: {
+        scope: 'read:user',
+      }}
     }),
-    // ...add more providers here
   ],
-}
+})
 
-export default NextAuth(authOptions)
+
+
+
