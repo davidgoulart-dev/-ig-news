@@ -1,6 +1,9 @@
 import Head from 'next/head';
 
 import styles from './styles.module.scss';
+import { getPrismicClient } from '@/services/prismic';
+import { GetStaticProps } from 'next';
+import Prismic, { predicate } from '@prismicio/client';
 
 export default function Posts() {
     return (
@@ -31,3 +34,18 @@ export default function Posts() {
 
     )
 }
+export const getStaticProps: GetStaticProps = async () => {
+    const prismic = getPrismicClient();
+    const response = await prismic.query(
+      predicate.at('document.type', 'publication'),
+      {
+        fetch: ['publication.title', 'publication.content'],
+        pageSize: 100, // Adicione esta linha para definir o número máximo de documentos retornados
+      },
+    );
+    console.log(response);
+  
+    return {
+      props: {},
+    };
+  };
