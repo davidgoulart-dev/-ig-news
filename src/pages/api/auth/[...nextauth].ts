@@ -14,49 +14,8 @@ export default NextAuth({
         scope: 'read:user',
       }}
     }),
-  ],
-  callbacks: {
-    async session(session){
-      const userActiveSubscription = await fauna.query(
-        q.Get(
-          q.Match(
-            q.Index('subscription_by_user_ref'),
-          )
-        )
-      )
-      
-      
-      return session
-    },
-    async signIn({ user, account, profile }) {
-      const email = user.email;
+  ]})
 
-      try {
-        await fauna.query(
-         q.If(
-              q.Not(
-                q.Exists(
-                    q.Match(
-                        q.Index('user_by_email'),
-                        q.Casefold(user.email)
-                    )
-                )
-              ),
-                q.Create(
-                    q.Collection('users'),
-                    { data: { email } }
-                )
-            
-          )
+ 
 
-        )
-      } catch (error) {
-        console.error('Error creating user in FaunaDB:', error);
-        return false;
-      }
-
-      return true;
-    }
-  }
-})
 

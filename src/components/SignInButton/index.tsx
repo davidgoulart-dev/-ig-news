@@ -3,9 +3,9 @@ import styles from './styles.module.scss'
 import {FiX} from 'react-icons/fi'
 import { signIn, useSession, signOut } from "next-auth/react"
 export function SignInButton () {
-    const { data: session } = useSession()
-    
-   
+    const {data: session}  = useSession();
+    console.log(session);
+
     return session ? (
         <button
          type="button"
